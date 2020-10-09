@@ -1,4 +1,5 @@
-use threadpool::ThreadPool;
+extern crate rust_server;
+use rust_server::ThreadPool;
 use std::fs;
 use std::io::prelude::*;
 use std::net::TcpListener;
@@ -6,9 +7,7 @@ use std::net::TcpStream;
 use std::thread;
 use std::time::Duration;
 
-
 fn main() {
-    // create a listener 
     let listener = TcpListener::bind("127.0.0.1:7878").unwrap();
     let pool = ThreadPool::new(4);
 
@@ -23,7 +22,6 @@ fn main() {
     println!("Shutting down.");
 }
 
-// Read and print data from the connection stream
 fn handle_connection(mut stream: TcpStream) {
     let mut buffer = [0; 1024];
     stream.read(&mut buffer).unwrap();
